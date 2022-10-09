@@ -1,3 +1,5 @@
-Pig : num_workers = 2  =>  50mins 10 secondes
+Pig : 
 
-num_workers = 4  =>  36mins 27 secondes
+nodes = 3  =>  50mins 10 secondes
+
+nodes = 5  =>  36mins 27 secondes
