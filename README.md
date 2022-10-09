@@ -94,3 +94,11 @@ We ran the pagerank script in both **Pig** and **Pyspark** in different size clu
 - 1 node : Master node only
 - 3 nodes : 1 Master node and 2 Worker nodes
 - 5 nodes : 1 Master node and 4 Worker nodes
+
+The table below is a collection of the different durations for each test:
+
+|         |        Pig | Pyspark |
+| :-----: | ---------: | ------: |
+| 1 node  | 1h 35m 14s |         |
+| 3 nodes |     50m 6s | 44m 10s |
+| 5 nodes |    36m 27s | 25m 59s |
