@@ -1,5 +1,5 @@
 Pig : 
-nodes = 1 (Master)  =>  
+nodes = 1 (Master)  =>  1 hour, 35 minutes, 14 seconds
 
 nodes = 3 (Master + 2 workers) =>  50mins 10 secondes
 
