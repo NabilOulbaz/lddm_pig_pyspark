@@ -25,7 +25,7 @@ gsutil rm -rf gs://nabils_bucket/out
 gcloud dataproc jobs submit pig --region europe-west1 --cluster cluster-a35a --project lddm-364917 -f gs://nabils_bucket/dataproc.py
 
 ## access results
-gsutil cat gs://nabils_bucket/out/pagerank_data_1/part-r-00000
+gsutil cat gs://nabils_bucket/out/pagerank_data_3/part-r-00000
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-west1
