@@ -21,10 +21,10 @@ gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region
 
 ## run
 ## (suppose that out directory is empty !!)
-gcloud dataproc jobs submit pyspark --region europe-west1 --cluster cluster-a35a gs://myown_bucket/pagerank-notype.py  -- gs://myown_bucket/small_page_links.nt 3
+gcloud dataproc jobs submit pyspark --region europe-west1 --cluster cluster-a35a gs://myown_bucket/pagerank-notype.py  -- gs://public_lddm_data/page_links_en.nt.bz2 3
 
 ## access results
-gsutil cat gs://myown_bucket/out/pagerank_data_10/part-r-00000
+gsutil cat gs://myown_bucket/out/pagerank_data_1/part-r-00000
 
 ## delete cluster...
 gcloud dataproc clusters delete cluster-a35a --region europe-west1
