@@ -13,9 +13,7 @@ To create a bucket to store code and output:
 gcloud storage buckets create gs://BUCKET_NAME --project=PROJECT_ID  --location=europe-west1 --uniform-bucket-level-access
 ```
 
-## Pig
-
-### Cluster creation
+## Cluster creation
 
 - To create the cluster with a certain NUM_WORKERS:
 
@@ -28,6 +26,8 @@ gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region
 ```
 gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-west1 --zone europe-west1-c --single-node --image-version 2.0-debian10 --project PROJECT_ID
 ```
+
+## Pig
 
 ### Copying pig code from local
 
@@ -57,4 +57,32 @@ Do not forget to stop your cluster at when job is finished.
 gcloud dataproc clusters delete cluster-a35a --region europe-west1
 ```
 
-# Pyspark
+## Pyspark
+
+### Copying pig code from local
+
+```
+gsutil cp pagerank-notype.py gs://BUCKET_NAME/
+```
+
+### Clearing output directory
+
+```
+gsutil rm -rf gs://BUCKET_NAME/out
+```
+
+### Running
+
+Once code is uploaded to bucket run :
+
+```
+gcloud dataproc jobs submit pyspark --region europe-west1 --cluster cluster-a35a gs://BUCKET_NAME/pagerank-notype.py  -- gs://public_lddm_data/page_links_en.nt.bz2 3
+```
+
+### Deleting the cluster
+
+Do not forget to stop your cluster at when job is finished.
+
+```
+gcloud dataproc clusters delete cluster-a35a --region europe-west1
+```
