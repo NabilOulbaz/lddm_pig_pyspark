@@ -4,3 +4,12 @@ nodes = 1 (Master)  =>  1 hour, 35 minutes, 14 seconds
 nodes = 3 (Master + 2 workers) =>  50mins 10 secondes
 
 nodes = 5 (Master + 4 workers) =>  36mins 27 secondes
+
+
+Pyspark
+
+nodes = 1 (Master) => 
+
+nodes = 3 (Master + 2 workers) =>  44 mins 10 secondes
+
+nodes = 5 (Master + 4 workers) => 25 mins 59 secondes
