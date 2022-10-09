@@ -18,7 +18,6 @@
 """
 This is an example implementation of PageRank. For more conventional use,
 Please refer to PageRank implementation provided by graphx
-
 Example Usage:
 bin/spark-submit examples/src/main/python/pagerank.py data/mllib/pagerank_data.txt 10
 """
@@ -34,14 +33,14 @@ from pyspark.sql import SparkSession
 # removed typing for compatibility with Spark 3.1.3
 # typing ok with spark 3.3.0
 
-def computeContribs(urls, rank) :
+def computeContribs(urls, rank):
     """Calculates URL contributions to the rank of other URLs."""
     num_urls = len(urls)
     for url in urls:
         yield (url, rank / num_urls)
 
 
-def parseNeighbors(urls) :
+def parseNeighbors(urls):
     """Parses a urls pair string into urls pair."""
     parts = re.split(r'\s+', urls)
     return parts[0], parts[2]
@@ -70,7 +69,8 @@ if __name__ == "__main__":
     lines = spark.read.text(sys.argv[1]).rdd.map(lambda r: r[0])
 
     # Loads all URLs from input file and initialize their neighbors.
-    links = lines.map(lambda urls: parseNeighbors(urls)).distinct().groupByKey().cache()
+    links = lines.map(lambda urls: parseNeighbors(urls)
+                      ).distinct().groupByKey().cache()
 
     # Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
     ranks = links.map(lambda url_neighbors: (url_neighbors[0], 1.0))
@@ -83,7 +83,8 @@ if __name__ == "__main__":
         ))
 
         # Re-calculates URL ranks based on neighbor contributions.
-        ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * 0.85 + 0.15)
+        ranks = contribs.reduceByKey(add).mapValues(
+            lambda rank: rank * 0.85 + 0.15)
 
     # Collects all URL ranks and dump them to console.
     for (link, rank) in ranks.collect():
