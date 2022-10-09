@@ -86,3 +86,11 @@ Do not forget to stop your cluster at when job is finished.
 ```
 gcloud dataproc clusters delete cluster-a35a --region europe-west1
 ```
+
+## Performance comparison
+
+We ran the pagerank script in both **Pig** and **Pyspark** in different size clusters:
+
+- 1 node : Master node only
+- 3 nodes : 1 Master node and 2 Worker nodes
+- 5 nodes : 1 Master node and 4 Worker nodes
