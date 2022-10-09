@@ -1,39 +1,60 @@
 # large scale data management
 
-Page rank in Pig, based on https://gist.github.com/jwills/2047314
+Page rank in Pig and Pyspark, based on https://github.com/momo54/large_scale_data_management
 Modified for running on Google Cloud Dataproc.
 
 ## data
 
-Data are supposed to be upload fist on Google Cloud Storage.
+Data is publicly available on cloud, we only reference it for usage(see pig and pyspark codes). But it's available at: http://downloads.dbpedia.org/3.5.1/en/page_links_en.nt.bz2 (keep it compressed).
 
-We need to create a root bucket to store you data and code
+To create a bucket to store code and output:
 
 ```
 gcloud storage buckets create gs://BUCKET_NAME --project=PROJECT_ID  --location=europe-west1 --uniform-bucket-level-access
 ```
 
-Next you can copy data/code using gstutils (see run.sh)
+## Pig
 
+### Cluster creation
 
-Full Data are available at: http://downloads.dbpedia.org/3.5.1/en/page_links_en.nt.bz2 (keep it compressed). 
+- To create the cluster with a certain NUM_WORKERS:
 
 ```
-bzcat page_links_en.nt.bz2 | wc -l
- 119077682
+gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-west1 --zone europe-west1-c --master-machine-type n1-standard-4 --master-boot-disk-size 500 --num-workers NUM_WORKERS --worker-machine-type n1-standard-4 --worker-boot-disk-size 500 --image-version 2.0-debian10 --project PROJECT_ID
 ```
 
+- To create the cluster with a single node:
 
-## Running
+```
+gcloud dataproc clusters create cluster-a35a --enable-component-gateway --region europe-west1 --zone europe-west1-c --single-node --image-version 2.0-debian10 --project PROJECT_ID
+```
 
-Ensure data and code are uploaded.
-Next update dataproc.py accordingly then run.
+### Copying pig code from local
+
+```
+gsutil cp dataproc.py gs://BUCKET_NAME/
+```
+
+### Clearing output directory
+
+```
+gsutil rm -rf gs://BUCKET_NAME/out
+```
+
+### Running
+
+Once code is uploaded to bucket and dataproc.py code is updated run :
+
+```
+gcloud dataproc jobs submit pig --region europe-west1 --cluster cluster-a35a --project PROJECT_ID -f gs://BUCKET_NAME/dataproc.py
+```
+
+### Deleting the cluster
 
 Do not forget to stop your cluster at when job is finished.
 
-hints: 1 master / 2 slaves on page_links
-
 ```
-2022-09-22 17:10:37,648 [main] INFO  org.apache.pig.Main - Pig script completed in 1 hour, 16 minutes, 49 seconds and 944 milliseconds (4609944 ms)
+gcloud dataproc clusters delete cluster-a35a --region europe-west1
 ```
 
+# Pyspark
