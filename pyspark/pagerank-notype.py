@@ -86,8 +86,10 @@ if __name__ == "__main__":
         ranks = contribs.reduceByKey(add).mapValues(
             lambda rank: rank * 0.85 + 0.15)
 
+    ranks.write.format("csv").save("gs://nabils_bucket/out")
     # Collects all URL ranks and dump them to console.
-    for (link, rank) in ranks.collect():
-        print("%s has rank: %s." % (link, rank))
+    # for (link, rank) in ranks.collect():
+    #    print("%s has rank: %s." % (link, rank))
 
+    ranks.saveAsTextFile("gs://nabils_bucket/out")
     spark.stop()
