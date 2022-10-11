@@ -125,3 +125,5 @@ The table below is a collection of the different durations for each test:
 - When adding the writing into text file option on the Pyspark query, it's performance dropped to be comparable with Pig on 4 and 5 workers.
 
 ![Comparison_graph](https://media.discordapp.net/attachments/768218175899959347/1029505481703694367/Execution_time_in_seconds_1.png)
+
+**Note** : The compute engine for this project costed about 15 dollars on gcloud.
