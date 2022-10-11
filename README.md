@@ -59,6 +59,8 @@ gcloud dataproc clusters delete cluster-a35a --region europe-west1
 
 ## Pyspark
 
+**Pyspark code has been updated to store the result into a text file on the bucket**
+
 ### Copying pig code from local
 
 ```
@@ -99,7 +101,7 @@ The table below is a collection of the different durations for each test:
 
 |           |        Pig | Pyspark |
 | :-------: | ---------: | ------: |
-| 0 Workers | 1h 35m 14s |         |
-| 2 Workers |     50m 6s | 44m 10s |
-| 4 Workers |    36m 27s | 25m 59s |
+| 0 Workers | 1h 35m 14s |       - |
+| 2 Workers |     50m 6s | 41m 26s |
+| 4 Workers |    36m 27s | 37m 42s |
 | 5 Workers |    33m 16s | 34m 00s |
