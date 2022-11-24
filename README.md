@@ -107,23 +107,26 @@ We ran the pagerank script in both **Pig** and **Pyspark** in different size clu
 
 - 1 node : Master node only
 - 3 nodes : 1 Master node and 2 Worker nodes
+- 4 nodes : 1 Master node and 3 Worker nodes
 - 5 nodes : 1 Master node and 4 Worker nodes
+- 6 nodes : 1 Master node and 5 Worker nodes
 
 The table below is a collection of the different durations for each test:
 
-|           |        Pig | Pyspark |
-| :-------: | ---------: | ------: |
-| 0 Workers | 1h 35m 14s |       - |
-| 2 Workers |     50m 6s | 41m 26s |
-| 3 Workers |    43m 45s |  39m 4s |
-| 4 Workers |    36m 27s | 37m 42s |
-| 5 Workers |    33m 16s | 34m 00s |
+|           |        Pig | Pyspark | Pyspark Controled partitionning |
+| :-------: | ---------: | ------: | ------------------------------: |
+| 0 Workers | 1h 35m 14s |       - |                               - |
+| 2 Workers |     50m 6s | 41m 26s |                          25m 2s |
+| 3 Workers |    43m 45s |  39m 4s |                         24m 52s |
+| 4 Workers |    36m 27s | 37m 42s |                         19m 29s |
+| 5 Workers |    33m 16s | 34m 00s |                         16m 58s |
 
 ### Graph comparison
 
 - Pyspark script couldn't function on a cluster with a single node cluster. This might be due to memory leak.
 - When adding the writing into text file option on the Pyspark query, it's performance dropped to be comparable with Pig on 4 and 5 workers.
+- The controlled partitionning increased by several fold the process time efficiency.
 
-![Comparison_graph](https://media.discordapp.net/attachments/768218175899959347/1029505481703694367/Execution_time_in_seconds_1.png)
+![Comparison_graph](https://media.discordapp.net/attachments/768218175899959347/1045307863700078633/Execution_time_in_seconds.png?width=755&height=467)
 
-**Note** : The compute engine for this project costed about 15 dollars on gcloud.
+**Note** : The compute engine for this project costed about 30 dollars on gcloud.
