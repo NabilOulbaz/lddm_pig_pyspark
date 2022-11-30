@@ -91,4 +91,5 @@ if __name__ == "__main__":
     #    print("%s has rank: %s." % (link, rank))
 
     ranks.saveAsTextFile("gs://nabils_bucket/out")
+
     spark.stop()
